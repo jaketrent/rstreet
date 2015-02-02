@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+require "rstreet"
+require "opts_parser"
+
+options = Rstreet::OptsParser.parse(ARGV)
+chatter = Rstreet::Debug.new(options)
+chatter.hello
+
