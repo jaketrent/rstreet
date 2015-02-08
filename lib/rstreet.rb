@@ -1,5 +1,8 @@
-require "rstreet/version"
 require "dotenv"
+
+require "bucket_communicator"
+require "rstreet/version"
+require "uploadable_collector"
 
 module Rstreet
   class Uploader
@@ -11,6 +14,11 @@ module Rstreet
     end
 
     def run
+      collector = UploadableCollector.new(@options.src)
+      uploadables = collector.collect
+      puts uploadables.inspect
+
+      BucketCommunicator.new(@options.s3_bucket).pull_manifest(collector.manifest_uploadable)
     end
 
     private
@@ -27,6 +35,7 @@ module Rstreet
     end
 
     def validate_options
+      # TODO: DRY'ify
       raise ArgumentError, "Specify a source directory in options.src" if @options.src.nil?
 
       raise ArgumentError, "Specify an S3 Bucket in an env var called S3_BUCKET or options.s3_bucket" if @options.s3_bucket.nil?
