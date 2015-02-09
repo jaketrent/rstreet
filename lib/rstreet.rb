@@ -16,9 +16,15 @@ module Rstreet
     def run
       collector = UploadableCollector.new(@options.src)
       uploadables = collector.collect
-      puts uploadables.inspect
 
-      BucketCommunicator.new(@options.s3_bucket).pull_manifest(collector.manifest_uploadable)
+      bucket_communicator = BucketCommunicator.new(@options.s3_bucket, @options.dry_run)
+      old_manifest = bucket_communicator.pull_manifest(collector.manifest_uploadable)
+      current_manifest_builder = collector.manifest_builder
+      diff = current_manifest_builder.diff(old_manifest)
+
+      to_upload = collector.find_uploadables(diff)
+      bucket_communicator.upload(to_upload)
+
     end
 
     private

@@ -9,6 +9,7 @@ module Rstreet
 
     def get_file(uploadable)
       @s3.buckets[@s3_bucket].objects[uploadable.name].read
+    rescue AWS::S3::Errors::NoSuchKey
     end
 
     def put_file(uploadable)
