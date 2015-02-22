@@ -1,3 +1,4 @@
+require "aws-sdk"
 require "dotenv"
 
 require "bucket_communicator"
@@ -6,10 +7,10 @@ require "uploadable_collector"
 
 module Rstreet
   class Uploader
-
     def initialize(options)
       @options = options
       load_env if should_load_env?
+      config_aws
       validate_options
     end
 
@@ -24,10 +25,13 @@ module Rstreet
 
       to_upload = collector.find_uploadables(diff)
       bucket_communicator.upload(to_upload)
-
     end
 
     private
+
+    def config_aws
+      AWS.config(access_key_id: @options.aws_key, secret_access_key: @options.aws_secret)
+    end
 
     def load_env
       Dotenv.load
@@ -50,6 +54,5 @@ module Rstreet
 
       raise ArgumentError, "Specify an AWS Secret Access Key in env var called AWS_SECRET_ACCESS_KEY or options.aws_secret" if @options.aws_secret.nil?
     end
-
   end
 end

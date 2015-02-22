@@ -13,7 +13,7 @@ module Rstreet
     end
 
     def put_file(uploadable)
-      @s3.buckets[@s3_bucket].objects[uploadable.name].write(file: uploadable.path)
+      @s3.buckets[@s3_bucket].objects[uploadable.name].write(file: uploadable.path, acl: :authenticated_read)
     end
   end
 end

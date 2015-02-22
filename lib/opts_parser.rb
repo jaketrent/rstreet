@@ -10,21 +10,22 @@ module Rstreet
       opt_parser = OptionParser.new do |opts|
         opts.banner = "Usage: rstreet [options] <src_dir>"
         opts.separator ""
-        opts.separator "Specific options:"
+        opts.separator "Options:"
 
+        # TODO: DRY up
         opts.on("-e", "--load-env",
                 "Load environment from .env file") do |load_env|
           options.load_env = true
         end
-        opts.on("-b", "--bucket",
+        opts.on("-b b", "--bucket b",
                 "S3 destination bucket") do |s3_bucket|
           options.s3_bucket = s3_bucket
         end
-        opts.on("-k", "--aws-key",
+        opts.on("-k k", "--aws-key k",
                 "AWS Access Key ID") do |aws_key|
           options.aws_key = aws_key
         end
-        opts.on("-s", "--aws-secret",
+        opts.on("-s s", "--aws-secret s",
                 "AWS Secret Access Key") do |aws_secret|
           options.aws_secret = aws_secret
         end

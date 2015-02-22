@@ -15,7 +15,7 @@ module Rstreet
     end
 
     def read
-      gz = Zlib::GzipReader.new(@manifest_file)
+      gz = Zlib::GzipReader.new(StringIO.new(@manifest_file))
       @manifest = JSON.parse(gz.read).to_h
       gz.close
       @manifest

@@ -20,6 +20,12 @@ Or install it yourself as:
 
     $ gem install rstreet
 
+## Setup AWS Access Policies
+
+Make sure that the credentials that you're providing to the tool have sufficient access to read and write to the bucket you're attempting to access.
+
+For an easy default, attach the managed access control policy "AmazonS3FullAccess" to your user/group.
+
 ## Usage
 
 TODO: Write usage instructions here

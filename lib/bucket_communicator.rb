@@ -26,8 +26,8 @@ module Rstreet
           begin
             @s3.put_file(u)
             puts "uploaded:        #{u.name}"
-          rescue
-            puts "error uploading: #{u.name}"
+          rescue StandardError => e
+            puts "error uploading: #{u.name}", e
           end
         end
       end
