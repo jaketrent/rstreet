@@ -40,7 +40,7 @@ module Rstreet
     end
 
     def init_manifest_builder
-      manifest_file = File.join(@src, ".manifest.json")
+      manifest_file = File.join(@src, ".manifest.json.gz")
       @manifest_uploadable = convert_to_uploadable(manifest_file)
       @manifest_builder = ManifestBuilder.new manifest_file
     end
