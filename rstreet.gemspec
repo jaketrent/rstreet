@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["jaketrent"]
   spec.email         = ["trent.jake@gmail.com"]
   spec.summary       = %q{Smart uploader for S3}
-  spec.description   = %q{Generates a manifest file on first upload.  Minimizes future uploads by only sending changed files.}
+  spec.description   = %q{Smart s3 uploader.  Generates a manifest file on first upload.  Minimizes future uploads by only sending changed files.}
   spec.homepage      = "https://github.com/jaketrent/rstreet"
   spec.license       = "MIT"
 
