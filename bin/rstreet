@@ -4,6 +4,6 @@ require "rstreet"
 require "opts_parser"
 
 options = Rstreet::OptsParser.parse(ARGV)
-chatter = Rstreet::Uploader.new(options)
-chatter.run
+uploader = Rstreet::Uploader.new(options)
+uploader.run
 

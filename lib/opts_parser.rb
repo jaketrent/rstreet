@@ -12,36 +12,28 @@ module Rstreet
         opts.separator ""
         opts.separator "Options:"
 
-        # TODO: DRY up
-        opts.on("-e", "--load-env",
-                "Load environment from .env file") do |load_env|
-          options.load_env = true
+        opts_def.each do |k, v|
+          opts.on(v[:short], v[:long], v[:desc]) do |val|
+            options[k] = val
+          end
         end
-        opts.on("-b b", "--bucket b",
-                "S3 destination bucket") do |s3_bucket|
-          options.s3_bucket = s3_bucket
-        end
-        opts.on("-k k", "--aws-key k",
-                "AWS Access Key ID") do |aws_key|
-          options.aws_key = aws_key
-        end
-        opts.on("-s s", "--aws-secret s",
-                "AWS Secret Access Key") do |aws_secret|
-          options.aws_secret = aws_secret
-        end
-        opts.on("-v", "--verbose",
-                "Run with expanded messages") do |verbose|
-          options.verbose = true
-        end
-        opts.on("-n", "--dry-run",
-                "Run but do not upload") do |dry_run|
-          options.dry_run = true
-        end
-
       end
 
       opt_parser.parse!(args)
-      options
+      options.to_h
     end
+
+    def self.opts_def
+      {
+        load_env: { short: "-e", long: "--load-env", desc: "Load .env file" },
+        s3_bucket: { short: "-b b", long: "--bucket b", desc: "S3 destination bucket" },
+        aws_key: { short: "-k k", long: "--aws-key k", desc: "AWS Access Key ID" },
+        aws_secret: { short: "-s s", long: "--aws-secret s", desc: "AWS Secret Access Key" },
+        verbose: { short: "-v", long: "--verbose", desc: "Run with expanded messages" },
+        dry_run: { short: "-d", long: "--dry-run", desc: "Run but do not upload" }
+      }
+    end
+
+    private_class_method :opts_def
   end
 end

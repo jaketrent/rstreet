@@ -14,3 +14,4 @@
 mkmf.log
 .env
 .gitignore
+.manifest.json.gz
